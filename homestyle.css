@@ -1,0 +1,503 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f8f8f8;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #3C486B;
+    font-weight: bold;
+    transition: color o.3s ease;
+}
+
+nav ul li a:hover {
+    color: #fff;
+}
+
+header .logo img {
+    display: inline-block;
+    height: 50px;
+    margin-left: 10px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container1 {
+    max-width: 100%;
+    height: 10px;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    background: #fff;
+    width: 600px;
+    height: 55px;
+    display: flex;
+    border: 1px solid black;
+}
+
+form input {
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+form button {
+    background: #005bb5;
+    padding: 10px 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+form .fa-magnifying-glass {
+    align-self: center;
+    color: #777;
+    padding: 10px 20px;
+}
+
+.sections {
+    margin-bottom: 40px;
+}
+
+#section1 {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 1%;
+    margin-bottom: 90px;
+
+}
+#section2{
+    width: 100%;
+    height: 100vh;
+    
+    background-position: center;
+}
+
+#section2 .main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    top: 10%;
+}
+
+#section2 .main h1{
+    position: relative;
+    font-size: 55px;
+  top: 10px;
+    left: 10px;
+}
+
+#section2 .main h1 span{
+    color: #089da1;
+}
+
+#section2 .main p{
+    width: 650px;
+    text-align: justify;
+    line-height: 22px;
+    position: relative;
+    top: 25px;
+    left: 10px;
+}
+#section2 .main .main_tag .main_btn{
+    background: #089da1;
+    padding: 10px 20px;
+    position: relative;
+    top: 90px;
+    left: 25px;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+#section2 .main .main_img img{
+    width: 780px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+
+#section3 {
+    background-image: url('images/newback.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1%;
+    margin-bottom: 90px;
+}
+
+#section4 {
+    display: flex;
+    height: 500px;
+
+    background-position: center;
+    background: none;
+    background-size: cover;
+    border-radius: 1%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 90px;
+}
+
+.left-col {
+
+    width: 250px;
+    height: 500px;
+    padding: 20px;
+    margin-right: 10px;
+    background-color: #e0e0e0;
+    padding-left: 50px;
+
+}
+
+.left-col ul li {
+    margin-bottom: 15px;
+}
+
+.left-col ul li:first-child {
+    margin-top: 15px;
+}
+
+.left-col ul {
+    list-style-type: none;
+
+}
+
+.left-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+
+    text-decoration: none;
+    font-weight: 300;
+    color: #003153;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.left-col ul li a:hover {
+    color: white;
+    padding-left: 8px;
+}
+
+
+.right-col {
+    flex: 1;
+    height: 500px;
+
+    margin-left: 10px;
+    background-color: #d0d0d0;
+}
+
+.carousel {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.carousel_image {
+    width: 100%;
+    height: 100%;
+    padding: 0 40px;
+
+}
+
+.carousel_track-container {
+
+    height: 100%;
+    position: relative;
+}
+
+.carousel_track {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.carousel_slide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.carousel_button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+
+.carousel_button--left {
+    left: 10px;
+}
+
+.carousel_button--right {
+    right: 10px;
+}
+
+.carousel_button li {
+    width: 12px;
+}
+
+
+.carousel_nav {
+
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.carousel_indicator {
+    border: 0;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 0 12px;
+}
+
+.carousel_indicator.current_slide {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+#section5 {
+    background-image: url(images/buy1.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 1%;
+    margin-bottom: 90px;
+}
+
+.popup {
+    animation-name: popup;
+    animation-duration: 3s;
+    animation-timing-function: ease-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    visibility: visible;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+   color: white;
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+        visibility: visible;
+    }
+
+    50% {
+        transform: scale(3.3);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 1;
+    }
+}
+
+.buysection {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: orange;
+    width: 300px;
+    margin-left: 300px;
+    text-align: left;
+}
+
+.buy-description {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    color: white;
+    font-weight: bold;
+    width: 400px;
+    text-align: justify;
+    margin-left: 300px;
+}
+
+.btn-buy-now {
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: orange;
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.5s ease;
+}
+
+.btn-buy-now:hover {
+    background-color: rgb(0, 255, 0);
+}
+
+@media screen and (max-width: 768px) {
+    .buysection {
+        font-size: 32px;
+    }
+
+    .buy-description {
+        font-size: 16px;
+    }
+
+    .btn-buy-now {
+        font-size: 20px;
+        padding: 15px 20px;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #919191;
+    border-radius: 10px;
+}
+
+.footer-container {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer ul {
+    list-style-type: none;
+}
+
+.footer {
+    background-color: #003153;
+    padding: 70px 0;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+    margin-left: 10vh;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: white;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #F45050;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: white;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: white;
+    padding-left: 8px;
+}
+
+.footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+    color: #24262b;
+    background-color: white;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="loginstyle.css">
+    <script src="login.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home1.html">HOME</a></li>
+                <li><a href=about.html>ABOUT US</a></li>
+                <li><a href=login.html>LOG IN</a></li>
+                <li><a href="reviews.html">REVIEWS</a></li>
+                <li><a href=buy.html>BUY</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <center>
+            <h1>Login</h1>
+            <form action="login.php" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+                <br><br>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <br><br>
+                <input type="submit" onclick="return validatelogin()" id="login" value="Login">
+            </form>
+        </center>
+    </main>
+</body>
+
+</html>
