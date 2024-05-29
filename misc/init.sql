@@ -15,39 +15,45 @@ CREATE TABLE suppliers (
     description TEXT,
     contact_details VARCHAR(255),
     email VARCHAR(255),
-    pricing_info TEXT
+pricing_info TEXT
 );
 
 
 
-CREATE TABLE items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+
+
+
+
+CREATE TABLE IF NOT EXISTS products (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    stock_level INT NOT NULL,
-    low_stock_threshold INT NOT NULL,
-    supplier_id INT,
-    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+    description VARCHAR(255),
+    category VARCHAR(50),
+    price DECIMAL(10, 2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE sales (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT,
-    item_id INT,
-    quantity INT NOT NULL,
-    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES customers(id),
-    FOREIGN KEY (item_id) REFERENCES items(id)
+CREATE TABLE IF NOT EXISTS stock (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    product_id INT(11) NOT NULL,
+    quantity INT(11) NOT NULL,
+    low_stock_alert INT(11) NOT NULL DEFAULT 10,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
---New 
--- Table structure for customers
+
+
+
+
+
 CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    phone VARCHAR(20),
-    address TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    email VARCHAR(100) NOT NULL,
+    contact_number VARCHAR(20) NOT NULL
 );
 
 -- Table structure for orders
