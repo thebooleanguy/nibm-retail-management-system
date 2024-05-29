@@ -1,0 +1,99 @@
+<!-- stock_report.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Stock Report</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    </head>
+    <body>
+        <div class="container mt-5" id="stock-report">
+            <h2>Stock Report</h2>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody id="stockItems">
+                    <!-- Items will be dynamically inserted here -->
+                </tbody>
+            </table>
+            <button class="btn btn-primary mt-3" onclick="generatePDF()">
+                Download PDF
+            </button>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch("fetch_stock.php")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const itemsContainer =
+                            document.getElementById("stockItems");
+                        data.forEach((item) => {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                            <td>${item.name}</td>
+                            <td>${item.description}</td>
+                            <td>${item.quantity}</td>
+                            <td>${new Date(
+                                item.updated_at
+                            ).toLocaleDateString()}</td>
+                        `;
+                            itemsContainer.appendChild(row);
+                        });
+                    });
+
+                window.generatePDF = function () {
+                    html2canvas(document.getElementById("stock-report"), {
+                        onrendered: function (canvas) {
+                            const imgData = canvas.toDataURL("image/png");
+                            const pdf = new jsPDF("p", "mm", "a4");
+                            const imgWidth = 210;
+                            const pageHeight = 295;
+                            const imgHeight =
+                                (canvas.height * imgWidth) / canvas.width;
+                            let heightLeft = imgHeight;
+
+                            let position = 0;
+
+                            pdf.addImage(
+                                imgData,
+                                "PNG",
+                                0,
+                                position,
+                                imgWidth,
+                                imgHeight
+                            );
+                            heightLeft -= pageHeight;
+
+                            while (heightLeft >= 0) {
+                                position = heightLeft - imgHeight;
+                                pdf.addPage();
+                                pdf.addImage(
+                                    imgData,
+                                    "PNG",
+                                    0,
+                                    position,
+                                    imgWidth,
+                                    imgHeight
+                                );
+                                heightLeft -= pageHeight;
+                            }
+                            pdf.save("stock_report.pdf");
+                        },
+                    });
+                };
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sales Over Time</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            .chart-container {
+                width: 80%;
+                height: 80vh; /* Viewport height */
+                max-width: 1200px;
+                margin: 50px auto;
+            }
+            canvas {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chart-container">
+            <h2 class="mb-4">Sales Over Time</h2>
+            <div class="form-group">
+                <label for="chartType">Select Chart Type:</label>
+                <select class="form-control" id="chartType">
+                    <option value="line">Line</option>
+                    <option value="bar">Bar</option>
+                    <option value="radar">Radar</option>
+                    <option value="polarArea">Polar Area</option>
+                </select>
+            </div>
+            <canvas id="salesChart"></canvas>
+        </div>
+
+        <script>
+            let salesChart;
+
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch("sales_data.php")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(
+                                "Network response was not ok " +
+                                    response.statusText
+                            );
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log(data); // Debugging: Check if data is received
+                        const dates = data.map((item) => item.date);
+                        const sales = data.map((item) => item.total_sales);
+
+                        const ctx = document
+                            .getElementById("salesChart")
+                            .getContext("2d");
+
+                        function renderChart(type) {
+                            if (salesChart) {
+                                salesChart.destroy();
+                            }
+                            salesChart = new Chart(ctx, {
+                                type: type,
+                                data: {
+                                    labels: dates,
+                                    datasets: [
+                                        {
+                                            label: "Sales",
+                                            data: sales,
+                                            backgroundColor:
+                                                "rgba(54, 162, 235, 0.2)",
+                                            borderColor:
+                                                "rgba(54, 162, 235, 1)",
+                                            borderWidth: 1,
+                                        },
+                                    ],
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                        },
+                                    },
+                                },
+                            });
+                        }
+
+                        renderChart("line"); // Render default chart type
+
+                        document
+                            .getElementById("chartType")
+                            .addEventListener("change", function () {
+                                renderChart(this.value);
+                            });
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data:", error); // Debugging: Log any errors
+                    });
+            });
+        </script>
+    </body>
+</html>

@@ -30,9 +30,12 @@ CREATE TABLE IF NOT EXISTS products (
     description VARCHAR(255),
     category VARCHAR(50),
     price DECIMAL(10, 2),
+    cost_price(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
 
 CREATE TABLE IF NOT EXISTS stock (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -77,3 +80,17 @@ CREATE TABLE order_items (
     total DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id)
 );
+
+
+
+
+-- Sales table to store sales data
+CREATE TABLE IF NOT EXISTS sales (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    product_id INT(11) NOT NULL,
+    quantity INT(11) NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+

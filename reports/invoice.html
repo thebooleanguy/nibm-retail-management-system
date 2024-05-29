@@ -1,0 +1,142 @@
+<!-- invoice.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Invoice Report</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    </head>
+    <body>
+        <div class="container mt-5" id="invoice">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Invoice</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <h4>Company Name</h4>
+                    <p>1234 Main St<br />City, State, 12345</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h5>Billed To:</h5>
+                    <p id="customerName"></p>
+                    <p id="customerAddress"></p>
+                </div>
+                <div class="col-6 text-right">
+                    <h5>Invoice #: <span id="invoiceNumber"></span></h5>
+                    <p>Date: <span id="invoiceDate"></span></p>
+                </div>
+            </div>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                    <!-- Items will be dynamically inserted here -->
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-12 text-right">
+                    <h4>Total: $<span id="invoiceTotal"></span></h4>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="generatePDF()">
+                Download PDF
+            </button>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const order_id = urlParams.get("order_id");
+
+                fetch(`fetch_data.php?order_id=${order_id}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const { order, items } = data;
+
+                        document.getElementById("customerName").innerText =
+                            order.customer_name;
+                        document.getElementById("customerAddress").innerText =
+                            order.customer_address;
+                        document.getElementById("invoiceNumber").innerText =
+                            order.id;
+                        document.getElementById("invoiceDate").innerText =
+                            new Date(order.created_at).toLocaleDateString();
+
+                        let total = 0;
+                        const itemsContainer =
+                            document.getElementById("invoiceItems");
+                        items.forEach((item) => {
+                            const itemTotal = item.quantity * item.unit_price;
+                            total += itemTotal;
+
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                            <td>${item.product_name}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.unit_price.toFixed(2)}</td>
+                            <td>$${item.total.toFixed(2)}</td>
+                        `;
+                            itemsContainer.appendChild(row);
+                        });
+
+                        document.getElementById("invoiceTotal").innerText =
+                            total.toFixed(2);
+                    });
+
+                window.generatePDF = function () {
+                    html2canvas(document.getElementById("invoice"), {
+                        onrendered: function (canvas) {
+                            const imgData = canvas.toDataURL("image/png");
+                            const pdf = new jsPDF("p", "mm", "a4");
+                            const imgWidth = 210;
+                            const pageHeight = 295;
+                            const imgHeight =
+                                (canvas.height * imgWidth) / canvas.width;
+                            let heightLeft = imgHeight;
+
+                            let position = 0;
+
+                            pdf.addImage(
+                                imgData,
+                                "PNG",
+                                0,
+                                position,
+                                imgWidth,
+                                imgHeight
+                            );
+                            heightLeft -= pageHeight;
+
+                            while (heightLeft >= 0) {
+                                position = heightLeft - imgHeight;
+                                pdf.addPage();
+                                pdf.addImage(
+                                    imgData,
+                                    "PNG",
+                                    0,
+                                    position,
+                                    imgWidth,
+                                    imgHeight
+                                );
+                                heightLeft -= pageHeight;
+                            }
+                            pdf.save("invoice.pdf");
+                        },
+                    });
+                };
+            });
+        </script>
+    </body>
+</html>
