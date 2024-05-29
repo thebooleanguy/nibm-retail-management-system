@@ -18,6 +18,8 @@ CREATE TABLE suppliers (
     pricing_info TEXT
 );
 
+
+
 CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -25,13 +27,6 @@ CREATE TABLE items (
     low_stock_threshold INT NOT NULL,
     supplier_id INT,
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
-);
-
-CREATE TABLE customers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    contact_details VARCHAR(255),
-    preferences TEXT
 );
 
 CREATE TABLE sales (
@@ -42,4 +37,37 @@ CREATE TABLE sales (
     sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (customer_id) REFERENCES customers(id),
     FOREIGN KEY (item_id) REFERENCES items(id)
+);
+
+--New 
+-- Table structure for customers
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table structure for orders
+-- is this the same as sales
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status ENUM('Pending', 'Completed', 'Cancelled') DEFAULT 'Pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+-- Table structure for order items
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );

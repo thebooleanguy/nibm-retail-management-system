@@ -69,4 +69,22 @@ $conn->close();
             </div>
             <div class="form-group">
                 <label for="contact_details">Contact Details:</label>
-                <input type="text" class="form-control" id="contact_details" name="contact_details" value="<?php echo
+                <input type="text" class="form-control" id="contact_details" name="contact_details" value="<?php echo $supplier['contact_details']; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo $supplier['email']; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="pricing_info">Pricing Information:</label>
+                <textarea class="form-control" id="pricing_info" name="pricing_info" required><?php echo $supplier['pricing_info']; ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description"><?php echo $supplier['description']; ?></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
