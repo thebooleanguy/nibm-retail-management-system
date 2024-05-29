@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Suppliers</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -41,13 +39,13 @@
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>{$row['name']}</td>";
-                echo "<td><a href='https://wa.me/{$row['contact_details']}' target='_blank'>{$row['contact_details']}</a></td>";
-                echo "<td><a href='mailto:{$row['email']}'>{$row['email']}</a></td>";
+                echo "<td><a href='https://wa.me/{$row['contact_details']}' target='_blank'><i class='fab fa-whatsapp'></i> {$row['contact_details']}</a></td>";
+                echo "<td><a href='mailto:{$row['email']}'><i class='fas fa-envelope'></i> {$row['email']}</a></td>";
                 echo "<td>{$row['pricing_info']}</td>";
                 echo "<td>{$row['description']}</td>";
                 echo "<td>";
-                echo "<a href='edit_supplier.php?id={$row['id']}' class='btn btn-warning btn-sm'>Edit</a> ";
-                echo "<a href='delete_supplier.php?id={$row['id']}' class='btn btn-danger btn-sm'>Delete</a>";
+                echo "<a href='edit_supplier.php?id={$row['id']}' class='btn btn-warning btn-sm'><i class='fas fa-edit'></i> Edit</a> ";
+                echo "<a href='delete_supplier.php?id={$row['id']}' class='btn btn-danger btn-sm'><i class='fas fa-trash'></i> Delete</a>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -58,7 +56,7 @@
 
         $conn->close();
         ?>
-        <a href="add_supplier.html" class="btn btn-primary mt-3">Add New Supplier</a>
+        <a href="add_supplier.html" class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Add New Supplier</a>
     </div>
 </body>
 </html>
