@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -12,21 +11,19 @@ body {
     background-color: #f8f8f8;
 }
 
-
-
 .headers {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-   
+
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-#header1{
+#header1 {
     background-color: #f0f0f0;
 }
-#header2{
-    background-color: #D4D4D4;
+#header2 {
+    background-color: #d4d4d4;
 }
 
 .headers nav ul {
@@ -37,32 +34,32 @@ body {
 #header1 nav ul li {
     margin-right: 30px;
 }
-#header2 nav ul li{
+#header2 nav ul li {
     margin-right: 100px;
 }
-#header2 nav ul li .p{
+#header2 nav ul li .p {
     margin-left: 50px;
 }
 
 .headers nav ul li a {
     text-decoration: none;
-    color: #3C486B;
+    color: #3c486b;
     font-weight: bold;
     transition: color o.3s ease;
 }
-.headers nav ul li{
+.headers nav ul li {
     text-decoration: none;
-    color: #3C486B;
+    color: #3c486b;
     font-weight: bold;
 }
-.headers nav ul li ul.dropdown li{
-    display:block;
+.headers nav ul li ul.dropdown li {
+    display: block;
     background: #9592bb;
-    color:black;
+    color: black;
     padding: 10px;
-    margin:2px 2px;
+    margin: 2px 2px;
 }
-.headers nav ul li ul.dropdown{
+.headers nav ul li ul.dropdown {
     width: auto;
     background: #e6e8ee;
     position: absolute;
@@ -73,10 +70,10 @@ body {
 .headers nav ul li a:hover {
     color: #fff;
 }
-.headers nav ul  li:hover{
+.headers nav ul li:hover {
     color: #fff;
 }
-.headers nav ul li:hover ul.dropdown{
+.headers nav ul li:hover ul.dropdown {
     display: block;
 }
 
@@ -85,25 +82,23 @@ body {
     height: 50px;
     margin-left: 10px;
 }
-.headers nav ul li ul.dropdowns li{
-    display:block;
+.headers nav ul li ul.dropdowns li {
+    display: block;
     background: #9592bb;
-    color:black;
+    color: black;
     padding: 10px;
-    margin:2px 2px;
+    margin: 2px 2px;
 }
-.headers nav ul li ul.dropdowns{
+.headers nav ul li ul.dropdowns {
     width: auto;
     background: #e6e8ee;
     position: absolute;
     z-index: 999;
     display: none;
 }
-.headers nav ul li:hover ul.dropdowns{
+.headers nav ul li:hover ul.dropdowns {
     display: block;
 }
-
-
 
 .category {
     width: 100%;
@@ -145,7 +140,7 @@ body {
 .category .category_box .category_card .category_img {
     width: 150px;
     height: 220px;
-    
+
     margin: 0 auto;
     cursor: pointer;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -171,13 +166,11 @@ body {
     height: 25px;
     font-size: small;
 }
-.category .category_box .category_card .category_tag .writer{
+.category .category_box .category_card .category_tag .writer {
     color: #919191;
     height: 10px;
-    
 }
 .category .category_box .category_card .category_tag .book_price {
-
     font-weight: bold;
     margin-bottom: 15px;
     color: #089da1;
@@ -194,10 +187,9 @@ body {
     border: 2px solid #089da1;
     text-decoration: none;
     color: #000;
-   
 }
 
-.category .category_box .category_card .category_tag .n_btn:hover{
+.category .category_box .category_card .category_tag .n_btn:hover {
     background-color: #089da1;
 }
 
@@ -250,11 +242,11 @@ body {
 }
 
 .footer-col h4::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     bottom: -10px;
-    background-color: #F45050;
+    background-color: #f45050;
     height: 2px;
     box-sizing: border-box;
     width: 50px;
@@ -266,7 +258,7 @@ body {
 
 .footer-col ul li a {
     font-size: 16px;
-   
+
     color: white;
     text-decoration: none;
     font-weight: 300;
@@ -297,8 +289,6 @@ body {
     color: #24262b;
     background-color: white;
 }
-
-
 
 .sc-container {
     width: 100%;
@@ -341,7 +331,7 @@ body {
     bottom: 40px;
     right: 15px;
     background-color: #25d366;
-    color: #FFF;
+    color: #fff;
     border-radius: 50px;
     text-align: center;
     font-size: 30px;
@@ -351,4 +341,20 @@ body {
 
 .my-float {
     margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+    .category .category_box {
+        grid-template-columns: 1fr 1fr;
+    }
+    .category .category_box .category_card {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .category .category_box {
+        grid-template-columns: 1fr;
+    }
 }
