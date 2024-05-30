@@ -41,5 +41,26 @@ function addToCart(title, author, price, imageUrl) {
     }
 
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    alert("Item added to cart!");
+    // alert("Item added to cart!");
 }
+
+// Function to enhance all "Add To Cart" buttons
+function enhanceAddToCartButtons() {
+    const addToCartButtons = document.querySelectorAll(".n_btn");
+    addToCartButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent the default behavior of the link
+            Swal.fire({
+                title: "Success!",
+                text: "The item has been added to your cart.",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+        });
+    });
+}
+
+// Initialize all enhancements when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+    enhanceAddToCartButtons();
+});

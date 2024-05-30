@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ekanayake Printers Dashboard</title>
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <!-- Font Awesome -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            rel="stylesheet"
+        />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="styles/employee_dashboard_style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="my-4 text-center">Ekanayake Printers Dashboard</h2>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card bg-primary text-white h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Add Product</h4>
+                            <p class="card-text">
+                                Add a new product to the inventory.
+                            </p>
+                        </div>
+                        <div
+                            class="card-footer d-flex align-items-center justify-content-between"
+                        >
+                            <a
+                                class="small text-white stretched-link"
+                                href="inventory/add_product.php"
+                            >
+                                <i class="fas fa-plus-circle fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card bg-success text-white h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">View Products</h4>
+                            <p class="card-text">
+                                View all products in the inventory.
+                            </p>
+                        </div>
+                        <div
+                            class="card-footer d-flex align-items-center justify-content-between"
+                        >
+                            <a
+                                class="small text-white stretched-link"
+                                href="inventory/view_products.php"
+                            >
+                                <i class="fas fa-list fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card bg-warning text-white h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Manage Stock</h4>
+                            <p class="card-text">
+                                Manage stock of existing products.
+                            </p>
+                        </div>
+                        <div
+                            class="card-footer d-flex align-items-center justify-content-between"
+                        >
+                            <a
+                                class="small text-white stretched-link"
+                                href="inventory/manage_stock.php"
+                            >
+                                <i class="fas fa-cubes fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card bg-danger text-white h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Add Order</h4>
+                            <p class="card-text">Place a new sales order.</p>
+                        </div>
+                        <div
+                            class="card-footer d-flex align-items-center justify-content-between"
+                        >
+                            <a
+                                class="small text-white stretched-link"
+                                href="sales/add_order.php"
+                            >
+                                <i class="fas fa-cart-plus fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

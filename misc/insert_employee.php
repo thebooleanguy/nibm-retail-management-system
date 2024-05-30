@@ -4,9 +4,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$username = '123';
-$password = password_hash('123', PASSWORD_DEFAULT);
-$role = 'Owner';
+$username = 'emp';
+$password = password_hash('emp123', PASSWORD_DEFAULT);
+$role = 'Worker';
 
 $sql = "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')";
 
