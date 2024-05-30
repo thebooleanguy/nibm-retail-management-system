@@ -145,6 +145,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<h2>Order successfully placed.</h2>";
     echo "<a href='view_orders.php' class='btn btn-primary'>View Orders</a>";
+    
+    // Redirect to invoice.html with the order_id
+    header("Location: ../../reports/invoice.html?order_id=$order_id");
+
     exit;
 }
 ?>

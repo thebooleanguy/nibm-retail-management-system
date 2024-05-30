@@ -1,4 +1,3 @@
-<!-- invoice.html -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,8 +17,8 @@
                     <h2>Invoice</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <h4>Company Name</h4>
-                    <p>1234 Main St<br />City, State, 12345</p>
+                    <h4>Ekanayake Printers</h4>
+                    <p>1234 Main St<br />Veyangoda, WP, Sri Lanka</p>
                 </div>
             </div>
             <div class="row">
@@ -64,7 +63,12 @@
                 fetch(`fetch_data.php?order_id=${order_id}`)
                     .then((response) => response.json())
                     .then((data) => {
-                        const { order, items } = data;
+                        if (data.error) {
+                            alert(data.error);
+                            return;
+                        }
+
+                        const { order, items } = data.order;
 
                         document.getElementById("customerName").innerText =
                             order.customer_name;
@@ -73,11 +77,12 @@
                         document.getElementById("invoiceNumber").innerText =
                             order.id;
                         document.getElementById("invoiceDate").innerText =
-                            new Date(order.created_at).toLocaleDateString();
+                            formatDate(order.created_at);
 
                         let total = 0;
                         const itemsContainer =
                             document.getElementById("invoiceItems");
+                        itemsContainer.innerHTML = ""; // Clear any existing items
                         items.forEach((item) => {
                             const itemTotal = item.quantity * item.unit_price;
                             total += itemTotal;
@@ -94,7 +99,23 @@
 
                         document.getElementById("invoiceTotal").innerText =
                             total.toFixed(2);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data:", error);
+                        alert("Error fetching data");
                     });
+
+                function formatDate(dateString) {
+                    const options = {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                    };
+                    return new Date(dateString).toLocaleDateString(
+                        "en-US",
+                        options
+                    );
+                }
 
                 window.generatePDF = function () {
                     html2canvas(document.getElementById("invoice"), {

@@ -1,40 +1,59 @@
 <?php
-// fetch_data.php
-require_once 'config.php';
+require_once "config.php";
 
-// Fetch order data
 $order_id = $_GET['order_id'];
-$order_query = "SELECT orders.id, customers.name AS customer_name, customers.address AS customer_address, orders.total_amount, orders.created_at
-                FROM orders
-                JOIN customers ON orders.customer_id = customers.id
-                WHERE orders.id = ?";
-$order_stmt = $mysqli->prepare($order_query);
-$order_stmt->bind_param('i', $order_id);
-$order_stmt->execute();
-$order_result = $order_stmt->get_result();
-$order_data = $order_result->fetch_assoc();
+
+// Fetch order details
+$sql_order = "SELECT o.id, o.customer_name, o.customer_address, o.created_at, SUM(oi.quantity * oi.unit_price) AS total_amount
+              FROM orders o
+              INNER JOIN order_items oi ON o.id = oi.order_id
+              WHERE o.id = ?";
+if ($stmt_order = $mysqli->prepare($sql_order)) {
+    $stmt_order->bind_param("i", $order_id);
+    if ($stmt_order->execute()) {
+        $result_order = $stmt_order->get_result();
+        if ($result_order->num_rows == 1) {
+            $order = $result_order->fetch_assoc();
+            $order['created_at'] = date("Y-m-d H:i:s", strtotime($order['created_at']));
+        } else {
+            echo json_encode(['error' => 'Order not found']);
+            exit;
+        }
+    } else {
+        echo json_encode(['error' => 'Error fetching order details']);
+        exit;
+    }
+    $stmt_order->close();
+} else {
+    echo json_encode(['error' => 'Error preparing order query']);
+    exit;
+}
 
 // Fetch order items
-$items_query = "SELECT product_name, quantity, unit_price, total FROM order_items WHERE order_id = ?";
-$items_stmt = $mysqli->prepare($items_query);
-$items_stmt->bind_param('i', $order_id);
-$items_stmt->execute();
-$items_result = $items_stmt->get_result();
-$order_items = $items_result->fetch_all(MYSQLI_ASSOC);
+$sql_items = "SELECT product_name, quantity, unit_price, (quantity * unit_price) AS total
+              FROM order_items
+              WHERE order_id = ?";
+$items = [];
+if ($stmt_items = $mysqli->prepare($sql_items)) {
+    $stmt_items->bind_param("i", $order_id);
+    if ($stmt_items->execute()) {
+        $result_items = $stmt_items->get_result();
+        while ($row = $result_items->fetch_assoc()) {
+            $items[] = $row;
+        }
+    } else {
+        echo json_encode(['error' => 'Error fetching order items']);
+        exit;
+    }
+    $stmt_items->close();
+} else {
+    echo json_encode(['error' => 'Error preparing order items query']);
+    exit;
+}
 
-echo json_encode(['order' => $order_data, 'items' => $order_items]);
-?>
+// Combine order details and items
+$order['items'] = $items;
+echo json_encode(['order' => $order, 'items' => $items]);
 
-<?php
-// fetch_stock.php
-require_once 'config.php';
-
-// Fetch stock data
-$stock_query = "SELECT products.name, products.description, stock.quantity, stock.created_at, stock.updated_at
-                FROM stock
-                JOIN products ON stock.product_id = products.id";
-$stock_result = $mysqli->query($stock_query);
-$stock_data = $stock_result->fetch_all(MYSQLI_ASSOC);
-
-echo json_encode($stock_data);
+$mysqli->close();
 ?>

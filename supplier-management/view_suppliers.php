@@ -34,14 +34,14 @@
 
         if ($result->num_rows > 0) {
             echo "<table class='table table-bordered'>";
-            echo "<thead class='thead-dark'><tr><th>Name</th><th>Contact Details</th><th>Email</th><th>Pricing Information</th><th>Description</th><th>Actions</th></tr></thead>";
+            echo "<thead class='thead-dark'><tr><th>Name</th><th>Contact Details</th><th>Email</th><th>Description</th><th>Actions</th></tr></thead>";
             echo "<tbody>";
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>{$row['name']}</td>";
                 echo "<td><a href='https://wa.me/{$row['contact_details']}' target='_blank'><i class='fab fa-whatsapp'></i> {$row['contact_details']}</a></td>";
                 echo "<td><a href='mailto:{$row['email']}'><i class='fas fa-envelope'></i> {$row['email']}</a></td>";
-                echo "<td>{$row['pricing_info']}</td>";
+                //echo "<td>{$row['pricing_info']}</td>";
                 echo "<td>{$row['description']}</td>";
                 echo "<td>";
                 echo "<a href='edit_supplier.php?id={$row['id']}' class='btn btn-warning btn-sm'><i class='fas fa-edit'></i> Edit</a> ";

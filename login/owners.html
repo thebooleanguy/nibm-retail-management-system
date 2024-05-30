@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="ownersstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="owners.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo2.jpg">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home1.html">HOME</a></li>
+                <li><a href=about.html>ABOUT US</a></li>
+                <li><a href="reviews.html">REVIEWS</a></li>
+                <li><a href=buy.html>BUY</a></li>
+                <li>LOG IN &#x25BE;</a>
+                    <ul class="dropdown">
+                        <li><a href="owner.html">OWNER</a></li>
+                        <li><a href="worker.html">WORKER</a></li>
+                        <li><a href="customer.html">CUSTOMER</a></li>  
+                    </ul>
+                </li>
+                <li>SIGN UP &#x25BE;</a>
+                    <ul class="dropdowns">
+                        <li><a href="owners.html">OWNER</a></li>
+                        <li><a href="workers.html">WORKER</a></li>
+                        <li><a href="customers.html">CUSTOMER</a></li>  
+                    </ul>
+                </li>
+
+               
+
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <center>
+            <h1>owner Signup</h1>
+            <form action="owners.php" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br><br>
+                <input type="submit" onclick="return validatesignup()" id="signup" value="Signup">
+            </form>
+        </center>
+    </main>
+    
+    </body>
+</html>
+    
