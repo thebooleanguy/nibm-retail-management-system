@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Checkout Cart</title>
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+        <!-- Custom CSS -->
+        <style>
+            .cart-item img {
+                width: 100px;
+            }
+            .cart-item .ml-3 {
+                margin-left: 1rem;
+            }
+            .order-summary {
+                margin-top: 2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Your Shopping Cart</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Cart Items</h4>
+                        </div>
+                        <div class="card-body" id="cart-items">
+                            <!-- Cart items will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Order Summary</h4>
+                        </div>
+                        <div class="card-body order-summary">
+                            <p>
+                                Items:
+                                <span class="float-right" id="items-total"
+                                    >Rs.0.00</span
+                                >
+                            </p>
+                            <p>
+                                Shipping:
+                                <span class="float-right" id="shipping-cost"
+                                    >Rs.300.00</span
+                                >
+                            </p>
+                            <hr />
+                            <h5>
+                                Total:
+                                <span class="float-right" id="total-cost"
+                                    >Rs.300.00</span
+                                >
+                            </h5>
+                            <button class="btn btn-primary btn-block mt-3">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Custom JS -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                renderCartItems();
+            });
+
+            // Render cart items
+            function renderCartItems() {
+                const cartItemsContainer =
+                    document.getElementById("cart-items");
+                cartItemsContainer.innerHTML = "";
+
+                let cartItems =
+                    JSON.parse(localStorage.getItem("cartItems")) || [];
+                let itemsTotal = 0;
+
+                cartItems.forEach((item, index) => {
+                    itemsTotal += item.price * item.quantity;
+                    const itemHtml = `
+                    <div class="cart-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="${
+                                item.imageUrl
+                            }" class="img-fluid" alt="${item.title}">
+                            <div class="ml-3">
+                                <h5>${item.title}</h5>
+                                <p class="mb-0">by ${item.author}</p>
+                                <small class="text-muted">Price: Rs.${item.price.toFixed(
+                                    2
+                                )}</small>
+                                <p class="mb-0">Quantity: ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="number" class="form-control" value="${
+                                item.quantity
+                            }" style="width: 60px" min="1" onchange="updateItemQuantity(${index}, this.value)">
+                            <button class="btn btn-danger btn-sm mt-2" onclick="removeItem(${index})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                `;
+                    cartItemsContainer.innerHTML += itemHtml;
+                });
+
+                document.getElementById(
+                    "items-total"
+                ).innerText = `Rs.${itemsTotal.toFixed(2)}`;
+                const shippingCost = 300.0;
+                const totalCost = itemsTotal + shippingCost;
+                document.getElementById(
+                    "total-cost"
+                ).innerText = `Rs.${totalCost.toFixed(2)}`;
+            }
+
+            // Update item quantity
+            function updateItemQuantity(index, quantity) {
+                if (quantity < 1) {
+                    quantity = 1;
+                }
+                let cartItems =
+                    JSON.parse(localStorage.getItem("cartItems")) || [];
+                cartItems[index].quantity = parseInt(quantity);
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                renderCartItems();
+            }
+
+            // Remove item from cart
+            function removeItem(index) {
+                let cartItems =
+                    JSON.parse(localStorage.getItem("cartItems")) || [];
+                cartItems.splice(index, 1);
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                renderCartItems();
+            }
+        </script>
+    </body>
+</html>
